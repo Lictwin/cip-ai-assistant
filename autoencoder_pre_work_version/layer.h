@@ -38,13 +38,18 @@ public:
 	layer(size_t type_of_neiro = classic_n, size_t type_of_active = lin, size_t quantity = 6);
 
 	std::vector<neiron*> get_this_layer();
+	std::vector<neiron*> get_next_layer();
+	std::vector<neiron*> get_prev_layer();
 	neiron* get_neiro(size_t position);
 	size_t how_many_in_this_layer();
 	void set_pointer(neiron* some);
 	void set_prev_layer(std::vector<neiron*> prev_layer);
 	void set_next_layer(std::vector<neiron*> next_layer);
 	void working_layer();
-	void put_values();
+	void put_values(std::vector<double> in);
 	void its_working();
+	std::vector<double> get_result();
+	std::vector<double> get_result_diff();
+	void clear_all();
 	~layer();
 };

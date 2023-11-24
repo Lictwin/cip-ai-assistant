@@ -49,19 +49,26 @@ void layer::set_prev_layer(std::vector<neiron*> prev_layer)
 
 }
 
-void layer::put_values()
+void layer::put_values(std::vector<double> in)
 {
-	//здесь прокручиваются нейроны
+	
 	for (size_t i = 0; i < qua_of_neirons; i++)
 	{
-		
+		this_neiron[i]->set_values(in[i]);
 	}
-
 
 }
 
 std::vector<neiron*> layer::get_this_layer() {
 	return this_neiron;
+}
+
+std::vector<neiron*> layer::get_next_layer() {
+	return next_neiron;
+}
+
+std::vector<neiron*> layer::get_prev_layer() {
+	return prev_neiron;
 }
 
 void layer::working_layer()
@@ -70,7 +77,28 @@ void layer::working_layer()
 	for (size_t i = 0; i < qua_of_neirons; i++)
 	{
 		this_neiron[i]->set_to_next();
+		Values_output.push_back(this_neiron[i]->get_results());
+		Values_diff.push_back(this_neiron[i]->get_diff());
+
+
+		this_neiron[i]->clean();
 	}
+}
+
+std::vector<double> layer::get_result()
+{
+	return Values_output;
+}
+
+void layer::clear_all()
+{
+	Values_diff.clear();
+	Values_output.clear();
+}
+
+std::vector<double> layer::get_result_diff()
+{
+	return Values_diff;
 }
 
 void layer::its_working()
