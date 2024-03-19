@@ -59,6 +59,7 @@ public:
 	// не ясно необходимы ли они
 
 	virtual vector<double> GetX() = 0;// получение вектора X
+	virtual vector<double> GetW() = 0;// получение весов W
 	virtual double GetY() = 0;// получение вектора Y
 	virtual double GetT() = 0;// получение порога
 	virtual double GetDiff() = 0;// получение дифференциала
@@ -117,6 +118,7 @@ public:
 	// не ясно необходимы ли они
 
 	vector<double> GetX();// получение вектора X
+	vector<double> GetW();// получение весов W
 	//vector<double> GetY();// возможно понадобится потом
 	double GetY();// получение вектора Y
 	double GetT();// получение порога
@@ -160,7 +162,6 @@ private:
 	vector<double> X;// входные значения
 	vector<double> W;// веса
 	vector<Neiron*> p_next;// указатели на следующие нейроны
-	//vector<Neiron*> p_prev;// указатели на предыдущие нейроны
 	ActivateFunc* activate;// функия активации
 
 

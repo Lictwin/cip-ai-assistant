@@ -15,9 +15,14 @@ class Layer
 private:
 	friend class Builder;
 	
+
+	/*указатели на нейроны*/
 	vector<Neiron*> pt_this;
 	vector<Neiron*> pt_next;
 	vector<Neiron*> pt_prev;
+
+
+	bool type_connection;// какой тип подключения
 	
 	size_t qua_of_neirons;
 	void MakeConnectionNext(Layer* next, bool type);
@@ -30,6 +35,7 @@ public:
 	Layer(size_t type_of_active, double a, size_t quantity);
 	Layer(vector<Neiron*> set);
 	~Layer();
+	void TrainWorkLayer();
 	vector<Neiron*> GetThisLayer();// получение вектора указателей на нейроны этого слоя
 	vector<Neiron*> GetNextLayer();// получение вектора указателей на нейроны следующего слоя
 	vector<Neiron*> GetPrevLayer();// получение вектора указателей на нейроны предыдущего слоя
@@ -37,6 +43,7 @@ public:
 	Neiron* GetNeiron(size_t position); // получение вектора указателя на нейрон в позиции (продумать как это реализовать)
 	size_t NeironsInLayer();
 	void SetPointer(Neiron* some);
+	void SetTypeOfConnection(bool type);
 	void SetPrevLayer(vector<Neiron*> prev_layer);
 	void SetPrevLayer(vector<Neiron*> prev_layer, bool type_connection);
 	void SetNextLayer(vector<Neiron*> next_layer);

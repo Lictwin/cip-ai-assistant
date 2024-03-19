@@ -116,6 +116,14 @@ Layer::~Layer()
 	}
 }
 
+void Layer::TrainWorkLayer()
+{
+	for (size_t i = 0; i < qua_of_neirons; i++)
+	{
+		pt_this[i]->TrainWork();
+	}
+}
+
 vector<Neiron*> Layer::GetThisLayer()
 {
 	return pt_this;
@@ -150,6 +158,11 @@ void Layer::SetPointer(Neiron* some)
 	qua_of_neirons += 1;
 }
 
+void Layer::SetTypeOfConnection(bool type)
+{
+	type_connection = type;
+}
+
 void Layer::SetPrevLayer(vector<Neiron*> prev_layer)
 {
 	pt_prev = prev_layer;
@@ -158,21 +171,6 @@ void Layer::SetPrevLayer(vector<Neiron*> prev_layer)
 void Layer::SetPrevLayer(vector<Neiron*> prev_layer, bool type_connection)
 {
 	pt_prev = prev_layer;
-	//if (type_connection)
-	//{
-	//	for (size_t i = 0; i < pt_this.size(); i++)
-	//	{
-	//		//pt_this[i]->SetPointersPrevLevel(pt_prev);
-	//	}
-	//}
-	//else
-	//{
-	//	for (size_t i = 0; i < pt_this.size(); i++)
-	//	{
-	//		vector<Neiron*> set{ pt_prev[i] };
-	//		//pt_this[i]->SetPointersPrevLevel(set);
-	//	}
-	//}
 }
 
 void Layer::SetNextLayer(vector<Neiron*> next_layer)
@@ -242,7 +240,6 @@ void Layer::ClearAll()
 	for (size_t i = 0; i < qua_of_neirons; i++)
 	{
 		pt_this[i]->ClearX();
-		//p_this[i]->ClearY();
 	}
 }
 

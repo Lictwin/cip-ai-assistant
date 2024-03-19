@@ -2,13 +2,11 @@
 #include "Neirons.h"
 #include "Layer.h"
 #include "NeuralNetwork.h"
-//#include "Director.h"
 
+class NeuralNetwork;
+struct CotainerNetwork;
+typedef CotainerNetwork CnNt;
 
-//struct Instruction
-//{
-//	int quantity;
-//};
 
 class FactoryNeirons
 {
@@ -53,30 +51,20 @@ public:
 	{
 		return new Layer(set);
 	}
-
-	/*Layer* SetLayer(size_t activation, double a, double b)
-	{
-		return new Layer();
-	}*/
 };
-
 
 class Builder
 {
 public:
 	Builder();
 	~Builder();
-	//NeuralNetwork* GetNN(Instruction set);
-	NeuralNetwork* GetNNHand();
+	CnNt* GetNN();
 	
-	void hand();
-
 private:
 	FactoryNeirons NeironsMaker;
 	FactoryLayers LayersMaker;
 	Layer* GetLayer(size_t numb_of_neiron, size_t activation);
 	Neiron* GetNeiron(size_t activation);
-	void MakeConnection(Layer* prev, Layer* next);
 	Layer* GetLayer();
 	Neiron* GetNeiron();
 };

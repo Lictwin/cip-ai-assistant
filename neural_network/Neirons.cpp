@@ -102,7 +102,14 @@ SimpleNeirons::SimpleNeirons(size_t activation, double a, double b):SimpleNeiron
 
 vector<double> SimpleNeirons::GetX()
 {
-	return X;
+	vector<double> result = X;
+	X.clear();
+	return result;
+}
+
+vector<double> SimpleNeirons::GetW()
+{
+	return W;
 }
 
 double SimpleNeirons::GetY()
@@ -203,8 +210,8 @@ void SimpleNeirons::TrainWork()
 		{
 			p_next[i]->SetX(Y);
 		}
-	else
-		std::cout << "problem in work";
+	/*else
+		std::cout << "problem in work";*/
 }
 
 void SimpleNeirons::Train(double gamma, double alfa, double diff, vector<double> output)
