@@ -25,35 +25,35 @@ private:
 	bool type_connection;// какой тип подключения
 	
 	size_t qua_of_neirons;
-	void MakeConnectionNext(Layer* next, bool type);
-	void MakeConnectionPrev(Layer* prev, bool type);
-public:
 
+	//функции для строителя
+	void MakeConnectionNext(Layer* next, bool type);
+	void SetPrevLayer(vector<Neiron*> prev_layer);
+	void SetPrevLayer(vector<Neiron*> prev_layer, bool type_connection);
+	
+	void SetPointer(Neiron* some);
+	
+public:
 	Layer();
-	Layer(size_t type_of_active, size_t quantity); 
-	Layer(size_t type_of_active,double a, double b, size_t quantity);
-	Layer(size_t type_of_active, double a, size_t quantity);
 	Layer(vector<Neiron*> set);
+	Layer(vector<Neiron*> set, bool type_connection);
 	~Layer();
-	void TrainWorkLayer();
 	vector<Neiron*> GetThisLayer();// получение вектора указателей на нейроны этого слоя
 	vector<Neiron*> GetNextLayer();// получение вектора указателей на нейроны следующего слоя
 	vector<Neiron*> GetPrevLayer();// получение вектора указателей на нейроны предыдущего слоя
-	//activations GetInformationAboutActivation();// доделать в будущем
-	Neiron* GetNeiron(size_t position); // получение вектора указателя на нейрон в позиции (продумать как это реализовать)
+	void TrainWorkLayer();
+	Neiron* GetNeiron(size_t position); // получение вектора указателя на нейрон в позиции 
 	size_t NeironsInLayer();
-	void SetPointer(Neiron* some);
-	void SetTypeOfConnection(bool type);
-	void SetPrevLayer(vector<Neiron*> prev_layer);
-	void SetPrevLayer(vector<Neiron*> prev_layer, bool type_connection);
-	void SetNextLayer(vector<Neiron*> next_layer);
-	void SetNextLayer(vector<Neiron*> next_layer, bool type_connection);
+	bool GetTypeOfConnection();
 	void WorkLayer();
 	void PutValues(vector<double> in);
 	vector<double> GetY();
 	vector<double> GetDiff();
 	void ClearAll(); 
 	void ClearX();
+	void SetNextLayer(vector<Neiron*> next_layer);
+	void SetNextLayer(vector<Neiron*> next_layer, bool type_connection);
+	void SetTypeOfConnection(bool type);
 
 
 };

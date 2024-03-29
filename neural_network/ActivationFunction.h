@@ -4,6 +4,7 @@
 #define RIGHT_MATH
 #define M_PI 3.1415926535
 
+using std::pair;
 using std::pow;
 using std::tanh;
 using std::sin;
@@ -21,6 +22,7 @@ public:
 	virtual double dif_activate(double x) = 0;
 	virtual double dif_activate_per_activate(double y) = 0;
 	virtual double inverse(double y, double dif_value = 0) = 0;
+	virtual pair<double,double> cooficients() = 0;
 };
 
 typedef AbstractActivator ActivateFunc;
@@ -37,6 +39,9 @@ public:
 	}
 	virtual double inverse(double y, double dif_value = 0) {
 		return y;
+	}
+	pair<double, double> cooficients(){
+		return  pair<double, double>(1.0, 1.0);
 	}
 };
 
@@ -56,6 +61,10 @@ public:
 	virtual double inverse(double y, double dif_value = 0) {
 		return y / a;
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(a, 1.0);
+	}
+
 
 	Linear(){
 		double a;
@@ -88,6 +97,9 @@ public:
 	virtual double inverse(double y, double dif_value = 0) {
 		return (y - b) / a;
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(a, b);
+	}
 
 	BiasLinear(double a, double b) {
 		this->a = a;
@@ -114,6 +126,9 @@ public:
 	virtual double inverse(double y, double dif_value = 0) {
 		return (y + b) / a;
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(a, b);
+	}
 
 	ThresholdLinear(double a, double b) {
 		this->a = a;
@@ -137,6 +152,9 @@ public:
 	virtual double inverse(double y, double dif_value = 0) {
 		return -log(1 / y - 1);
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
+	}
 };
 
 typedef Logistic Logist;
@@ -154,6 +172,9 @@ public:
 	}
 	virtual double inverse(double y, double dif_value = 0) {
 		return -log(2 / (y + 1) - 1);
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
 	}
 };
 
@@ -174,6 +195,9 @@ public:
 	}
 	virtual double inverse(double y, double dif_value = 0) {
 		return (-log(1 / y - 1)) / a;
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(a, 1.0);
 	}
 	Sigmoid() {
 		double a;
@@ -204,6 +228,9 @@ public:
 	virtual double inverse(double y, double dif_value = 0) {
 		return (-log(2 / (y + 1) - 1)) / a;
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(a, 1.0);
+	}
 
 	BipolarSigmoid(double a) {
 		this->a = a;
@@ -225,6 +252,9 @@ public:
 	};
 	virtual double inverse(double y, double dif_value = 0) {
 		return atanh(y);
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
 	}
 };
 
@@ -251,6 +281,9 @@ public:
 		else
 			return y / (1 - y);
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
+	}
 };
 
 class CleanSinus : public AbstractActivator {
@@ -266,6 +299,9 @@ public:
 	}
 	virtual double inverse(double y, double dif_value = 0) {
 		return asin(y);
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
 	}
 };
 
@@ -300,6 +336,9 @@ public:
 			inverse_value *= -1;
 		return inverse_value;
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
+	}
 };
 
 typedef LimitedSinus LSinus;
@@ -321,6 +360,9 @@ public:
 		if (dif_value > 0)
 			inverse_value *= -1;
 		return inverse_value;
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
 	}
 };
 
@@ -350,6 +392,9 @@ public:
 			inverse_value *= -1;
 		return inverse_value;
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
+	}
 };
 
 typedef LimitedCosinus LCosinus;
@@ -378,6 +423,9 @@ public:
 		else
 			return -1; // TODO
 	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
+	}
 };
 
 class Gaussian : public AbstractActivator {
@@ -396,6 +444,9 @@ public:
 		if (dif_value < 0)
 			inverse_value *= -1;
 		return inverse_value;
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
 	}
 };
 
@@ -421,6 +472,9 @@ public:
 	}
 	virtual double inverse(double y, double dif_value = 0) {	
 			return -y; 
+	}
+	pair<double, double> cooficients() {
+		return  pair<double, double>(1.0, 1.0);
 	}
 private:
 	double Random()

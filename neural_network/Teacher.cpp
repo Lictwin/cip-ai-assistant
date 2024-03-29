@@ -2,14 +2,9 @@
 #include<time.h>
 #include<algorithm>
 
-//void Teacher::BPE()
-//{
-//	
-//}
 
 void Teacher::BPE(vector<double> set, vector<double> e, vector<double> res)
 {
-	//cout << "its bpe\n";
 	vector<double> gamma_now;
 	vector<double> gamma_prev;
 	vector<vector<double>> gammas;
@@ -22,18 +17,18 @@ void Teacher::BPE(vector<double> set, vector<double> e, vector<double> res)
 	gamma_prev = gamma_now;
 	gamma_now.clear();
 
-
+	if(qua_layers >= 2)
 	for (size_t i = qua_layers - 2; i < -1; i--) {
 		
 		size_t qua_of_neiro = this->container->network->GetLayer(i)->NeironsInLayer();
 		vector<vector<double>> W_layer;
 		bool flag_sv = 1;
 
-		for (size_t z = 0; z < this->container->network->GetLayer(i+1)->GetThisLayer().size(); z++){//получение всех весов следующего уровня
+		for (size_t z = 0; z < this->container->network->GetLayer(i+1)->NeironsInLayer(); z++){//получение всех весов следующего уровня
 			W_layer.push_back(this->container->network->GetLayer(i+1)->GetThisLayer()[z]->GetW());
 		}
 
-		if (W_layer[0].size() == 1 && this->container->network->GetLayer(i)->GetThisLayer().size() == this->container->network->GetLayer(i + 1)->GetThisLayer().size()) {
+		if (W_layer[0].size() == 1 && this->container->network->GetLayer(i)->NeironsInLayer() == this->container->network->GetLayer(i + 1)->NeironsInLayer()) {
 			flag_sv = 0;
 		}
 
@@ -77,9 +72,8 @@ Teacher::Teacher()
 {
 	container = nullptr;
 	alfa = 0.1;
-	itterations = 10;
-	E = 0.1;
-	
+	itterations = 100;
+	E = 0.01;
 }
 
 Teacher::Teacher(CnNt* train): Teacher()
@@ -109,8 +103,9 @@ void Teacher::TrainBPE()
 	size_t data_shift = this->container->begin->GetDataShift(); 
 	size_t many_set= this->container->begin->GetHowManySet();
 	size_t last_layer = this->container->end->GetHowManyEnd();
+	container->inf.passport_E = E;
 	itterations = 100;
-
+	
 	cout << "\n\n\n \\BPE\n";
 
 	for (size_t i = 0; i < itterations; i++){
@@ -167,6 +162,10 @@ void Teacher::TrainBPE()
 			" Total E\t" << total_E << "\t\n" <<
 			" MAX E\t" << max_E << "\t\n" <<
 			" MIN E\t" << min_E << "\t\n";
+		container->inf.MAX_E = max_E;
+		container->inf.MIN_E = min_E;
+		container->inf.total_E = total_E;
+		
 	}
 
 

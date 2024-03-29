@@ -2,18 +2,13 @@
 
 
 NeuralNetwork::NeuralNetwork(){
-	forecast_shift = 1;
-	data_shift = 1;
 	qua_layers = 0;
 }
 
-NeuralNetwork::NeuralNetwork(size_t forecast_shift, size_t data_shift, size_t qua_layers){
-	this->forecast_shift = forecast_shift;
-	this->data_shift = data_shift;
-	this->qua_layers = 0;
-}
-
 NeuralNetwork::~NeuralNetwork(){
+	for (size_t i = 0; i < qua_layers; i++) {
+		delete layers[i];
+	}
 }
 
 void NeuralNetwork::Work(){
@@ -57,10 +52,7 @@ Layer* NeuralNetwork::GetLayer(size_t position){// просмотреть оставим как есть 
 //	return result;
 //}
 
-void NeuralNetwork::GetWideInformation()
-{
 
-}
 
 void NeuralNetwork::MakeConnection(size_t number_layer,  size_t type_of_connection){
 	

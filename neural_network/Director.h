@@ -5,10 +5,10 @@
 #include <fstream>
 #include "Adapters.h"
 #include "Builder.h"
-//#include "Teacher.h"
 #include "NeuralNetwork.h"
 
 
+typedef vector<pair<size_t, pair<double, double>>> Activations;
 using std::vector;
 using std::pair;
 class AdapterBegin;
@@ -17,19 +17,45 @@ class NeuralNetwork;
 struct CotainerNetwork;
 typedef CotainerNetwork CnNt;
 
+struct Information {
+	size_t forecast_shift;//сдвиг по прогнозу (на сколько прогнозируем)
+	size_t data_shift;//сдвиг по данным (на сколько сдвигаемся по данным)
+	size_t data_to_layer;//сколько значений отправляется на вход
+	size_t how_many_get;//сколько значений получаем на выходе
+	size_t qua_layers;//количество слоёв
+	double passport_E;//цель обучения задаваямая при обучении сети
+	double total_E;//полная ошибка сети
+	double MIN_E;//минимальная ошибка
+	double MAX_E;//максимальная ошибка
+	struct layer_function {
+		size_t qua;
+		bool type_connection;
+		size_t activation;
+	};
+	struct function_activation {
+		size_t activation;
+		double a;
+		double b;
+	};
+	vector<layer_function> layers;
+	vector<function_activation> function;
+};
+
 struct CotainerNetwork
 {
 	//здесь адаптер на вход и выход и сама сеть
+	//вручную освобождать исключительно всю структуру
 	AdapterBegin* begin;
 	NeuralNetwork* network;
 	AdapterEnd* end;
-	//Information inf;
+	Information inf;
 
 	~CotainerNetwork() {
 		delete[] begin;
 		delete[] network;
 		delete[] end;
 	}
+	void SaveBin(std::string name);
 };
 
 
@@ -133,6 +159,8 @@ public:
 	//void GetInstruction();
 	//void BuildNetwork(Instruction set);
 	void BuildNetworkHand();
+	void BuildNetwork(std::string file);
+	void SaveNetwork();
 	void Train();
 	void Train(int type);
 	/*vector<double> Work_();
@@ -145,6 +173,7 @@ public:
 	void WorkPredictMode(vector<double> set);
 	*/
 	void SetValues(vector<double> set);
+	void LoadNN(std::string name);
 	vector<double> GetPredictData();
 
 private:

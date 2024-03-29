@@ -7,7 +7,6 @@
 * Все переменные пишутся через нижние подчеркивания
 * Все файлы пишутся через большие буквы
 * Работу осуществлять только через Director
-* 
 */
 
 #include <iostream>
@@ -16,7 +15,7 @@
 vector<double> test_function()
 {
     vector<double> result;
-    for (size_t i = 0; i < 15; i++){
+    for (size_t i = 0; i < 1000; i++){
         double param = (double)i / 10;
         result.push_back(2 * sin(param) + 3 * cos(param));
     }
@@ -27,13 +26,13 @@ vector<double> test_function()
 
 int main(){
     Director mama = Director();
-    mama.BuildNetworkHand();
-    //Builder bild;
-    //CnNt* serq = bild.GetNN();
+    /*mama.BuildNetworkHand();
     vector<double> values = test_function();
     mama.SetValues(values);
 
     mama.Train();
+    mama.SaveNetwork();*/
+    mama.LoadNN("first.dnb");
     std::cout << "End\n";
 }
 

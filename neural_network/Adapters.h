@@ -23,8 +23,6 @@ public:
 	~AdapterBegin();
 	void Work();
 	void Work(vector<double> set);
-	/*void TrainWork();
-	void TrainWork(vector<double> set);*/
 	size_t GetDataShift();
 	size_t GetHowManySet();
 	void SetData(vector<double> set);
@@ -43,7 +41,7 @@ private:
 	AdapterEnd* this_adapter;// указатель на конечный адаптер (возможно не пригодится)
 
 	bool type_of_connection;// тип подключения к первому слою 1 - все выходы ко всем нейронам, 0 - один выход на один нейрон
-	size_t values_to_layer;//сколько у нас нейронов
+	size_t neiro_in_layer;//сколько у нас нейронов
 	size_t how_many_set;// сколько значений отправляем
 	size_t data_shift;//сдвиг по данным
 

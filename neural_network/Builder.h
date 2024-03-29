@@ -42,10 +42,6 @@ public:
 		return new Layer();
 	}
 
-	Layer* SetLayer(size_t activation, size_t quantity)
-	{
-		return new Layer(activation, quantity);
-	}
 
 	Layer* SetLayer(vector<Neiron*> set)
 	{
@@ -59,11 +55,12 @@ public:
 	Builder();
 	~Builder();
 	CnNt* GetNN();
+	CnNt* NNFromFile(std::string file);
 	
 private:
 	FactoryNeirons NeironsMaker;
 	FactoryLayers LayersMaker;
-	Layer* GetLayer(size_t numb_of_neiron, size_t activation);
+	//Layer* GetLayer(size_t numb_of_neiron, size_t activation);
 	Neiron* GetNeiron(size_t activation);
 	Layer* GetLayer();
 	Neiron* GetNeiron();
