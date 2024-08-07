@@ -1,0 +1,36 @@
+#include "DataFormats.h"
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////// OCDF ////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+OneCIDDataFormat::OneCIDDataFormat() {
+	this->cid = 0;
+	this->time = 0;
+	this->value = 0;
+}
+OneCIDDataFormat::OneCIDDataFormat(const OneCIDDataFormat& data) {
+	this->cid = data.cid;
+	this->time = data.time;
+	this->value = data.value;
+}
+OneCIDDataFormat::OneCIDDataFormat(short cid, int time, float value) {
+	this->cid = cid;
+	this->time = time;
+	this->value = value;
+}
+std::ostream& operator<<(std::ostream& os, const OneCIDDataFormat& data) {
+	os << data.cid << ";" << data.time << ";" << data.value;
+	return os;
+}
+std::istream& operator>>(std::istream& is, OneCIDDataFormat& data) {
+	char buffer_char;
+	is >> data.cid >> buffer_char >> data.time >> buffer_char >> data.value;
+	return is;
+}
+void OneCIDDataFormat::operator=(const OneCIDDataFormat& data) {
+	this->cid = data.cid;
+	this->time = data.time;
+	this->value = data.value;
+}
+
